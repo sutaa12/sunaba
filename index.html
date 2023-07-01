@@ -31,8 +31,11 @@
                 remainingTime = 3 - diffHours;
             }
 
+            var remainingHours = Math.floor(remainingTime);
+            var remainingMinutes = Math.round((remainingTime - remainingHours) * 60);
+
             document.getElementById('result').innerHTML = '駐輪料金: ' + cost + '円';
-            document.getElementById('remaining').innerHTML = '次の料金加算まで: ' + remainingTime.toFixed(2) + '時間';
+            document.getElementById('remaining').innerHTML = '次の料金加算まで: ' + remainingHours + '時間' + remainingMinutes + '分';
         }
     </script>
 </head>
