@@ -5,7 +5,7 @@
     <script>
         function calculate() {
             var specifiedTimeInput = document.getElementById('specifiedTime').value;
-            var currentTimeInput = document.getElementById('currentTime').value;
+            var currentTimeInput = document.getElementById('currentTime').value || new Date().toISOString().substr(11,5);
 
             var specifiedTime = new Date('1970-01-01T' + specifiedTimeInput + ':00');
             var currentTime = new Date('1970-01-01T' + currentTimeInput + ':00');
@@ -19,11 +19,20 @@
             var diffHours = diff / (1000 * 60 * 60);  // Convert to hours
 
             var cost = 0;
+            var remainingTime = 0;
+
             if (diffHours > 3) {
-                cost = 50 + Math.floor((diffHours - 5) / 4) * 100;
+                cost = 50;
+                remainingTime = 4 - ((diffHours - 5) % 4);
+                if (remainingTime < 4) {
+                    cost += Math.floor((diffHours - 5) / 4) * 100;
+                }
+            } else {
+                remainingTime = 3 - diffHours;
             }
 
             document.getElementById('result').innerHTML = '駐輪料金: ' + cost + '円';
+            document.getElementById('remaining').innerHTML = '次の料金加算まで: ' + remainingTime.toFixed(2) + '時間';
         }
     </script>
 </head>
@@ -37,4 +46,6 @@
     <br>
     <button onclick="calculate()">料金を算出</button>
     <p id="result"></p>
+    <p id="remaining"></p>
 </body>
+</html>
