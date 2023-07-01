@@ -2,10 +2,16 @@
 <html>
 <head>
     <title>駐輪場の駐輪料金算出</title>
+    <style>
+        input, button {
+            padding: 10px;
+            font-size: 18px;
+        }
+    </style>
     <script>
         function calculate() {
             var specifiedDateTimeInput = document.getElementById('specifiedDateTime').value;
-            var currentDateTimeInput = document.getElementById('currentDateTime').value || new Date().toISOString().substr(0,16);
+            var currentDateTimeInput = document.getElementById('currentDateTime').value || new Date(new Date().getTime() + (9 * 60 * 60 * 1000)).toISOString().substr(0,16);
 
             var specifiedDateTime = new Date(specifiedDateTimeInput);
             var currentDateTime = new Date(currentDateTimeInput);
@@ -37,9 +43,11 @@
 <body>
     <h1>駐輪場の駐輪料金算出</h1>
     <label for="specifiedDateTime">指定日時:</label>
+    <br>
     <input type="datetime-local" id="specifiedDateTime" name="specifiedDateTime">
     <br>
     <label for="currentDateTime">現在日時:</label>
+    <br>
     <input type="datetime-local" id="currentDateTime" name="currentDateTime">
     <br>
     <button onclick="calculate()">料金を算出</button>
