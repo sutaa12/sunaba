@@ -4,18 +4,13 @@
     <title>駐輪場の駐輪料金算出</title>
     <script>
         function calculate() {
-            var specifiedTimeInput = document.getElementById('specifiedTime').value;
-            var currentTimeInput = document.getElementById('currentTime').value || new Date().toISOString().substr(11,5);
+            var specifiedDateTimeInput = document.getElementById('specifiedDateTime').value;
+            var currentDateTimeInput = document.getElementById('currentDateTime').value || new Date().toISOString().substr(0,16);
 
-            var specifiedTime = new Date('1970-01-01T' + specifiedTimeInput + ':00');
-            var currentTime = new Date('1970-01-01T' + currentTimeInput + ':00');
+            var specifiedDateTime = new Date(specifiedDateTimeInput);
+            var currentDateTime = new Date(currentDateTimeInput);
 
-            // Consider the case when specifiedTime is later than currentTime
-            if (specifiedTime > currentTime) {
-                currentTime.setDate(currentTime.getDate() + 1);
-            }
-
-            var diff = currentTime - specifiedTime;  // Difference in milliseconds
+            var diff = currentDateTime - specifiedDateTime;  // Difference in milliseconds
             var diffHours = diff / (1000 * 60 * 60);  // Convert to hours
 
             var cost = 0;
@@ -41,11 +36,11 @@
 </head>
 <body>
     <h1>駐輪場の駐輪料金算出</h1>
-    <label for="specifiedTime">指定時刻:</label>
-    <input type="time" id="specifiedTime" name="specifiedTime">
+    <label for="specifiedDateTime">指定日時:</label>
+    <input type="datetime-local" id="specifiedDateTime" name="specifiedDateTime">
     <br>
-    <label for="currentTime">現在時刻:</label>
-    <input type="time" id="currentTime" name="currentTime">
+    <label for="currentDateTime">現在日時:</label>
+    <input type="datetime-local" id="currentDateTime" name="currentDateTime">
     <br>
     <button onclick="calculate()">料金を算出</button>
     <p id="result"></p>
