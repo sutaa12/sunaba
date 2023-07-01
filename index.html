@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>駐輪場の駐輪料金算出</title>
+    <script>
+        function calculate() {
+            var specifiedTimeInput = document.getElementById('specifiedTime').value;
+            var currentTimeInput = document.getElementById('currentTime').value;
+
+            var specifiedTime = new Date('1970-01-01T' + specifiedTimeInput + ':00');
+            var currentTime = new Date('1970-01-01T' + currentTimeInput + ':00');
+
+            // Consider the case when specifiedTime is later than currentTime
+            if (specifiedTime > currentTime) {
+                currentTime.setDate(currentTime.getDate() + 1);
+            }
+
+            var diff = currentTime - specifiedTime;  // Difference in milliseconds
+            var diffHours = diff / (1000 * 60 * 60);  // Convert to hours
+
+            var cost = 0;
+            if (diffHours > 3) {
+                cost = 50 + Math.floor((diffHours - 5) / 4) * 100;
+            }
+
+            document.getElementById('result').innerHTML = '駐輪料金: ' + cost + '円';
+        }
+    </script>
+</head>
+<body>
+    <h1>駐輪場の駐輪料金算出</h1>
+    <label for="specifiedTime">指定時刻:</label>
+    <input type="time" id="specifiedTime" name="specifiedTime">
+    <br>
+    <label for="currentTime">現在時刻:</label>
+    <input type="time" id="currentTime" name="currentTime">
+    <br>
+    <button onclick="calculate()">料金を算出</button>
+    <p id="result"></p>
+</body>
