@@ -24,7 +24,7 @@
 
             if (diffHours > 3) {
                 cost = 50;
-                remainingTime = ((diffHours - 5) % 4);
+                remainingTime = ((diffHours - 3) % 4);
                 if (remainingTime < 4) {
                     cost += Math.floor((diffHours - 5) / 4) * 100 + 100;
                 }
